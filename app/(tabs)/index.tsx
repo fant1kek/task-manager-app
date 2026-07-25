@@ -136,9 +136,7 @@ export default function TaskListScreen() {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       {/* Шапка экрана с переключателем темы */}
       <View style={styles.header}>
-        <Text style={[styles.headerTitle, { color: colors.text }]}>
-          Задачи поля
-        </Text>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>Задачи</Text>
         <TouchableOpacity
           style={[styles.themeButton, { backgroundColor: colors.card }]}
           onPress={changeTheme}

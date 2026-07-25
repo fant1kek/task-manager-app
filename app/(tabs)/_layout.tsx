@@ -57,6 +57,17 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      {/* Вкладка 3: История действий */}
+      <Tabs.Screen
+        name="history"
+        options={{
+          title: "История",
+          tabBarIcon: ({ focused }) => (
+            <Text style={{ fontSize: 20 }}>{focused ? "📜" : "📖"}</Text>
+          ),
+        }}
+      />
     </Tabs>
   );
 }
