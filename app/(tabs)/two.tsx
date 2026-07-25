@@ -4,6 +4,7 @@ import {
   Alert,
   ScrollView,
   StyleSheet,
+  Switch,
   Text,
   TextInput,
   TouchableOpacity,
@@ -11,6 +12,7 @@ import {
 } from "react-native";
 import { useTasks } from "../../context/TaskContext";
 import { useCustomTheme } from "../../context/ThemeContext";
+import { NotificationService } from "../../services/NotificationService";
 
 const themes = {
   light: {
@@ -20,12 +22,14 @@ const themes = {
     border: "#E5E5EA",
     textInput: "#F2F2F7",
     primary: "#007AFF",
+    subText: "#8E8E93",
   },
   dark: {
     background: "#121212",
     card: "#1E1E1E",
     text: "#FFFFFF",
     border: "#38383A",
+    subText: "#8E8E93",
     textInput: "#2C2C2E",
     primary: "#0A84FF",
   },
@@ -36,6 +40,7 @@ export default function CreateTaskScreen() {
   const { theme } = useCustomTheme();
   const colors = theme === "dark" ? themes.dark : themes.light;
   const router = useRouter();
+  const [isDemoMode, setIsDemoMode] = useState(false);
 
   // Состояния полей формы
   const [title, setTitle] = useState("");
@@ -78,6 +83,21 @@ export default function CreateTaskScreen() {
         attachments: [], // Фото добавим на следующем шаге
         status: "New",
       });
+
+      // Логика планирования пуша по ТЗ
+      if (isDemoMode) {
+        // Если включен демо-режим — шлем пуш через 30 секунд
+        await NotificationService.scheduleDemoNotification(title.trim(), 30);
+      } else {
+        // В обычном режиме — за 30 минут до дедлайна
+        const dueDate = new Date();
+        dueDate.setHours(dueDate.getHours() + parseInt(hoursAhead || "2", 10));
+        await NotificationService.scheduleTaskNotification(
+          Math.random().toString(),
+          title.trim(),
+          dueDate.toISOString(),
+        );
+      }
 
       Alert.alert("Успех", "Задача успешно создана локально!", [
         {
@@ -209,6 +229,36 @@ export default function CreateTaskScreen() {
           keyboardType="numeric"
           value={hoursAhead}
           onChangeText={setHoursAhead}
+        />
+      </View>
+
+      {/* Блок Демо-режима уведомлений */}
+      <View
+        style={[
+          styles.inputGroup,
+          {
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            backgroundColor: colors.card,
+            padding: 12,
+            borderRadius: 10,
+            marginBottom: 20,
+          },
+        ]}
+      >
+        <View style={{ flex: 1, marginRight: 8 }}>
+          <Text style={[styles.label, { color: colors.text, marginBottom: 2 }]}>
+            🛠 Демо-режим уведомлений
+          </Text>
+          <Text style={{ color: colors.subText, fontSize: 12 }}>
+            Прислать тестовый пуш через 30 секунд для проверки кода
+          </Text>
+        </View>
+        <Switch
+          value={isDemoMode}
+          onValueChange={setIsDemoMode}
+          trackColor={{ false: "#767577", true: colors.primary }}
         />
       </View>
 

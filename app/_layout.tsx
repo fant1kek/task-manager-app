@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { TaskProvider } from "../context/TaskContext";
 import { CustomThemeProvider } from "../context/ThemeContext";
+import { NotificationService } from "../services/NotificationService";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -23,6 +24,11 @@ export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
+
+  // Запрос прав на пуш-уведомления при старте приложения
+  useEffect(() => {
+    NotificationService.requestPermissions();
+  }, []);
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
