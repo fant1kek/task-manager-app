@@ -1,67 +1,59 @@
-import { SymbolView } from 'expo-symbols';
-import { Link, Tabs } from 'expo-router';
-import { Platform, Pressable } from 'react-native';
+import { Tabs } from "expo-router";
+import React from "react";
+import { Text } from "react-native";
+import { useCustomTheme } from "../../context/ThemeContext";
 
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
+const themes = {
+  light: {
+    card: "#FFFFFF",
+    text: "#1C1C1E",
+    primary: "#007AFF",
+    inactive: "#8E8E93",
+  },
+  dark: {
+    card: "#1E1E1E",
+    text: "#FFFFFF",
+    primary: "#0A84FF",
+    inactive: "#8E8E93",
+  },
+};
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const { theme } = useCustomTheme();
+  const colors = theme === "dark" ? themes.dark : themes.light;
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.inactive,
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: colors.card,
+          borderTopWidth: 0,
+          elevation: 5,
+          shadowOpacity: 0.1,
+        },
+      }}
+    >
+      {/* Вкладка 1: Главный список задач */}
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => (
-            <SymbolView
-              name={{
-                ios: 'chevron.left.forwardslash.chevron.right',
-                android: 'code',
-                web: 'code',
-              }}
-              tintColor={color}
-              size={28}
-            />
-          ),
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable style={{ marginRight: 15 }}>
-                {({ pressed }) => (
-                  <SymbolView
-                    name={{ ios: 'info.circle', android: 'info', web: 'info' }}
-                    size={25}
-                    tintColor={Colors[colorScheme].text}
-                    style={{ opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
+          title: "Задачи",
+          tabBarIcon: ({ focused }) => (
+            <Text style={{ fontSize: 20 }}>{focused ? "📋" : "📁"}</Text>
           ),
         }}
       />
+
+      {/* Вкладка 2: Форма создания */}
       <Tabs.Screen
         name="two"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => (
-            <SymbolView
-              name={{
-                ios: 'chevron.left.forwardslash.chevron.right',
-                android: 'code',
-                web: 'code',
-              }}
-              tintColor={color}
-              size={28}
-            />
+          title: "Создать",
+          tabBarIcon: ({ focused }) => (
+            <Text style={{ fontSize: 20 }}>{focused ? "➕" : "📝"}</Text>
           ),
         }}
       />
