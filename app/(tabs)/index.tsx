@@ -122,10 +122,20 @@ export default function TaskListScreen() {
           <Text
             style={[
               styles.syncText,
-              { color: item.syncStatus === "Synced" ? "#34C759" : "#FF9500" },
+              {
+                color:
+                  item.syncStatus === "Synced"
+                    ? "#34C759" // Зеленый, если успешно
+                    : item.syncStatus === "Sync Failed"
+                      ? "#FF3B30" // Красный, если ошибка отправки
+                      : "#FF9500", // Оранжевый, если ждет в очереди (Pending)
+              },
             ]}
           >
-            ● {item.syncStatus}
+            ●{" "}
+            {item.syncStatus === "Sync Failed"
+              ? "Ошибка отправки"
+              : item.syncStatus}
           </Text>
         </View>
       </View>

@@ -1,4 +1,67 @@
 {
-  "tasks": [],
-  "history": []
+  "tasks": [
+    {
+      "title": "D",
+      "description": "X",
+      "dueDate": "2026-07-25T15:46:20.618Z",
+      "location": {
+        "address": "D"
+      },
+      "attachments": [],
+      "status": "New",
+      "id": "rPb0Hm3nQCs",
+      "createdAt": "2026-07-25T13:46:20.618Z",
+      "syncStatus": "Synced"
+    },
+    {
+      "title": "Test",
+      "description": "Test",
+      "dueDate": "2026-07-25T14:41:10.162Z",
+      "location": {
+        "address": "Q"
+      },
+      "attachments": [],
+      "status": "New",
+      "id": "oXQfNHlnt1w",
+      "createdAt": "2026-07-25T13:41:10.162Z",
+      "syncStatus": "Synced"
+    },
+    {
+      "title": "F",
+      "description": "C",
+      "dueDate": "2026-07-25T15:00:09.955Z",
+      "location": {
+        "address": "G"
+      },
+      "attachments": [],
+      "status": "New",
+      "id": "8b7rob8syxo",
+      "createdAt": "2026-07-25T14:00:09.956Z",
+      "syncStatus": "Synced"
+    }
+  ],
+  "history": [
+    {
+      "id": "SAU7ARr31dQ",
+      "taskId": "ili60g",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Test\"",
+      "timestamp": "2026-07-25T13:46:21.025Z"
+    },
+    {
+      "id": "wUfUcFyiYCc",
+      "taskId": "fzglk6",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"D\"",
+      "timestamp": "2026-07-25T13:46:21.041Z"
+    },
+    {
+      "id": "8_TE_XAccvU",
+      "taskId": "7xpnb",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"F\"",
+      "timestamp": "2026-07-25T14:00:10.402Z"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

@@ -1,5 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import NetInfo from "@react-native-community/netinfo";
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { SyncService } from "../services/SyncService";
 import { HistoryLog, Task, TaskStatus } from "../types";
 
 interface TaskContextType {
@@ -35,6 +37,68 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
     loadData();
   }, []);
 
+  // Слушатель изменения статуса сети интернет
+  useEffect(() => {
+    let isFirstRender = true;
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      if (!isFirstRender && state.isConnected && tasks.length > 0) {
+        triggerSync(tasks, history);
+      }
+      isFirstRender = false;
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Функция фонового прохода и синхронизации
+  const triggerSync = async (
+    currentTasks: Task[],
+    currentHistory: HistoryLog[],
+  ) => {
+    const state = await NetInfo.fetch();
+    if (!state.isConnected) return; // Если интернета вообще нет — оффлайн-режим, не красим в ошибку
+
+    let tasksChanged = false;
+    const updatedTasks = await Promise.all(
+      currentTasks.map(async (task) => {
+        // Синхронизируем задачи, которые либо еще не отправлялись, либо прошлый раз завершился ошибкой
+        if (
+          task.syncStatus === "Pending Sync" ||
+          task.syncStatus === "Sync Failed"
+        ) {
+          const success = await SyncService.syncTaskWithServer(task);
+
+          if (success) {
+            tasksChanged = true;
+
+            const syncLog: HistoryLog = {
+              id: Math.random().toString(36).substring(7),
+              taskId: task.id,
+              actionType: "Sync",
+              description: `Синхронизировано с сервером: "${task.title}"`,
+              timestamp: new Date().toISOString(),
+            };
+            currentHistory.unshift(syncLog);
+            await SyncService.syncHistoryWithServer(syncLog);
+
+            return { ...task, syncStatus: "Synced" as const };
+          } else {
+            // ЕСЛИ СЕРВЕР ДОСТУПЕН, НО ВЕРНУЛ ОШИБКУ (или выключен json-server)
+            tasksChanged = true;
+            return { ...task, syncStatus: "Sync Failed" as const };
+          }
+        }
+        return task;
+      }),
+    );
+
+    if (tasksChanged) {
+      setTasks(updatedTasks);
+      setHistory([...currentHistory]);
+      await AsyncStorage.setItem("tasks", JSON.stringify(updatedTasks));
+      await AsyncStorage.setItem("history", JSON.stringify(currentHistory));
+    }
+  };
+
   // Функция для одновременного сохранения изменений и логов в AsyncStorage
   const saveAndLog = async (
     newTasks: Task[],
@@ -53,6 +117,10 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       await AsyncStorage.setItem("tasks", JSON.stringify(newTasks));
       await AsyncStorage.setItem("history", JSON.stringify(updatedHistory));
+
+      setTimeout(() => {
+        triggerSync(newTasks, updatedHistory);
+      }, 300);
     } catch (e) {
       console.error("Ошибка сохранения данных", e);
     }
