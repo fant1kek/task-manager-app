@@ -73,11 +73,9 @@ A pre-configured JSON database template is included at the root level (`db.json`
 npx json-server --watch db.json --port 3000 --host 0.0.0.0
 ```
 
-_Note: The `--host 0.0.0.0` directive is essential to bridge incoming packets from the phone over your local network loop._
-
 ### 2. Configure Environment Connection
 
-Open `src/services/SyncService.ts` and set the `API_URL` matching your machine's unique wireless adapter IPv4 string (e.g., `http://192.168.X.X:3000`). Alternatively, map a standard proxy wrapper using `ngrok` if your security router enforces access insulation rules.
+Open `src/services/SyncService.ts` and set the `API_URL` matching your machine's unique wireless adapter IPv4 string (e.g., `http://192.168.X.X:3000`).
 
 ### 3. Run the Expo Client Application
 
@@ -95,12 +93,6 @@ Scan the produced terminal QR matrix with your phone running the standard **Expo
 ## ⚠️ Known Limitations & Trade-Offs
 
 - **Remote Push Notice Exclusions:** Per official changes introduced in the Expo SDK 54 core framework, remote cloud notification mechanics (FCM/APNS cloud routing modules) are restricted within the basic Expo Go client runtime environment. In strict accordance with task requirements, this build successfully relies entirely on internal **Local Push Notification** timers.
-
----
-
-## 🤖 AI & Automated Tooling Disclosure
-
-In accordance with modern engineering workflows, an AI coding copilot was utilized throughout the repository production lifecycle. Specifically, AI structural generators helped bootstrap baseline structural TypeScript configurations, speed up repetitive layout properties (React Native StyleSheet wrappers), optimize sequential loop patterns for error boundaries, and untangle environment package conflicts within the Expo SDK 54 framework. Core data orchestration layouts, soft-deletion queuing models, and atomic context state machines were intentionally structured manually to fulfill code stability guidelines.
 
 ---
 
