@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import React from "react";
 import { Text } from "react-native";
-import { useCustomTheme } from "../../context/ThemeContext";
+import { useCustomTheme } from "../../src/context/ThemeContext";
 
 const themes = {
   light: {
@@ -40,7 +40,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Задачи",
+          title: "Task",
           tabBarIcon: ({ focused }) => (
             <Text style={{ fontSize: 20 }}>{focused ? "📋" : "📁"}</Text>
           ),
@@ -49,9 +49,9 @@ export default function TabLayout() {
 
       {/* Вкладка 2: Форма создания */}
       <Tabs.Screen
-        name="two"
+        name="create"
         options={{
-          title: "Создать",
+          title: "Create",
           tabBarIcon: ({ focused }) => (
             <Text style={{ fontSize: 20 }}>{focused ? "➕" : "📝"}</Text>
           ),
@@ -62,7 +62,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="history"
         options={{
-          title: "История",
+          title: "History",
           tabBarIcon: ({ focused }) => (
             <Text style={{ fontSize: 20 }}>{focused ? "📜" : "📖"}</Text>
           ),

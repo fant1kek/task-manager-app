@@ -1,8 +1,8 @@
 import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { useTasks } from "../../context/TaskContext";
-import { useCustomTheme } from "../../context/ThemeContext";
-import { HistoryLog } from "../../types";
+import { useTasks } from "../../src/context/TaskContext";
+import { useCustomTheme } from "../../src/context/ThemeContext";
+import { HistoryLog } from "../../src/types";
 
 const themes = {
   light: {
@@ -65,7 +65,7 @@ export default function HistoryScreen() {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <Text style={[styles.screenTitle, { color: colors.text }]}>
-        История действий
+        History actions
       </Text>
 
       <FlatList
@@ -77,10 +77,10 @@ export default function HistoryScreen() {
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyIcon}>📜</Text>
             <Text style={[styles.emptyText, { color: colors.text }]}>
-              История пуста
+              Story is empty
             </Text>
             <Text style={[styles.emptySubText, { color: colors.subText }]}>
-              Здесь будут отображаться логи создания и изменения задач.
+              Logs of task creation and modification will be displayed here.
             </Text>
           </View>
         }

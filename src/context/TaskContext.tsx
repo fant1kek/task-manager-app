@@ -130,7 +130,7 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
               id: generateUniqueId(),
               taskId: task.id,
               actionType: "Sync",
-              description: `Синхронизировано с сервером: "${task.title}"`,
+              description: `Synchronized with the server: "${task.title}"`,
               timestamp: new Date().toISOString(),
             };
 
@@ -211,7 +211,7 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
       id: Math.random().toString(36).substring(7), // Уникальный ID самого лога
       taskId: generatedTaskId, // Передаем тот же самый ID задачи для связки!
       actionType: "Create",
-      description: `Создана задача: "${newTask.title}"`,
+      description: `Task created: "${newTask.title}"`,
       timestamp: new Date().toISOString(),
     };
 
@@ -229,7 +229,7 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
       id: Math.random().toString(36).substring(7),
       taskId: id, // Передаем ID изменяемой задачи
       actionType: "Status Change",
-      description: `Статус задачи "${targetTask?.title}" изменен на "${status}"`,
+      description: `The task status is "${targetTask?.title}" changed to "${status}"`,
       timestamp: new Date().toISOString(),
     };
 
@@ -251,7 +251,7 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({
       id: Math.random().toString(36).substring(7),
       taskId: id,
       actionType: "Delete",
-      description: `Удалена задача "${targetTask?.title}"`,
+      description: `Task deleted "${targetTask?.title}"`,
       timestamp: new Date().toISOString(),
     };
 

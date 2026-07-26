@@ -27,8 +27,8 @@ export const NotificationService = {
 
     if (finalStatus !== "granted") {
       Alert.alert(
-        "Внимание",
-        "Без разрешения на уведомления вы пропустите дедлайны задач.",
+        "Attention",
+        "Without permission for notifications, you will miss task deadlines.",
       );
       return false;
     }
@@ -65,8 +65,8 @@ export const NotificationService = {
 
     const identifier = await Notifications.scheduleNotificationAsync({
       content: {
-        title: "⚠️ Скоро дедлайн по задаче!",
-        body: `До выполнения задачи "${title}" осталось 30 минут.`,
+        title: "⚠️ The deadline coming soon!",
+        body: `There are 30 minutes left until the task "${title}" is completed.`,
         data: { taskId },
       },
       trigger: {
@@ -85,8 +85,8 @@ export const NotificationService = {
   ) => {
     const identifier = await Notifications.scheduleNotificationAsync({
       content: {
-        title: "🔔 Демо-режим: Проверка пуша",
-        body: `Это тестовое уведомление для задачи "${title}". Прошло ${secondsAhead} секунд!`,
+        title: "🔔 Demo mode: Push verification",
+        body: `This is a test notification for the "${title}" task. It's been ${secondsAhead} seconds!`,
       },
       trigger: {
         type: SchedulableTriggerInputTypes.TIME_INTERVAL,

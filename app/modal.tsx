@@ -9,9 +9,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useTasks } from "../context/TaskContext";
-import { useCustomTheme } from "../context/ThemeContext";
-import { TaskStatus } from "../types";
+import { useTasks } from "../src/context/TaskContext";
+import { useCustomTheme } from "../src/context/ThemeContext";
+import { TaskStatus } from "../src/types";
 
 const themes = {
   light: {
@@ -52,21 +52,21 @@ export default function TaskDetailModal() {
           },
         ]}
       >
-        <Text style={{ color: colors.text }}>Задача не найдена</Text>
+        <Text style={{ color: colors.text }}>Task not found</Text>
       </View>
     );
   }
 
   const changeStatus = async (status: TaskStatus) => {
     await updateTaskStatus(task.id, status);
-    Alert.alert("Успех", `Статус изменен на "${status}"`);
+    Alert.alert("Success", `Status changed to "${status}"`);
   };
 
   const handleDelete = () => {
-    Alert.alert("Удаление", "Вы уверены, что хотите удалить эту задачу?", [
-      { text: "Отмена", style: "cancel" },
+    Alert.alert("Delete task", "Are you sure you want to delete this task?", [
+      { text: "Cancel", style: "cancel" },
       {
-        text: "Удалить",
+        text: "Delete",
         style: "destructive",
         onPress: async () => {
           await deleteTask(task.id);
@@ -84,13 +84,13 @@ export default function TaskDetailModal() {
           style={styles.backButton}
         >
           <Text style={{ color: "#007AFF", fontSize: 17, fontWeight: "600" }}>
-            ← Назад
+            ← Back
           </Text>
         </TouchableOpacity>
 
         <View style={styles.headerTitleContainer}>
           <Text style={[styles.headerTitle, { color: colors.text }]}>
-            Детали задачи
+            Task details
           </Text>
         </View>
       </View>
@@ -109,25 +109,25 @@ export default function TaskDetailModal() {
               { color: task.status === "Completed" ? "#34C759" : "#007AFF" },
             ]}
           >
-            Статус: {task.status}
+            Status: {task.status}
           </Text>
           <Text style={[styles.description, { color: colors.text }]}>
             {task.description}
           </Text>
           <Text style={[styles.metaText, { color: colors.subText }]}>
-            📍 Адрес: {task.location.address}
+            📍 Address: {task.location.address}
           </Text>
           {task.location.latitude && task.location.longitude && (
             <Text style={[styles.metaText, { color: colors.subText }]}>
-              🌐 Координаты: {task.location.latitude.toFixed(5)},{" "}
+              🌐 Coordinates: {task.location.latitude.toFixed(5)},{" "}
               {task.location.longitude.toFixed(5)}
             </Text>
           )}
           <Text style={[styles.metaText, { color: colors.subText }]}>
-            📅 Дедлайн: {new Date(task.dueDate).toLocaleString()}
+            📅 Deadline: {new Date(task.dueDate).toLocaleString()}
           </Text>
           <Text style={[styles.metaText, { color: colors.subText }]}>
-            🔄 Синхронизация: {task.syncStatus}
+            🔄 Synchronization: {task.syncStatus}
           </Text>
           {/* Отображение прикрепленного фото или по ТЗ */}
           {task.attachments &&
@@ -142,7 +142,7 @@ export default function TaskDetailModal() {
                       { color: colors.subText, marginBottom: 8 },
                     ]}
                   >
-                    📎 Прикрепленный файл:
+                    📎 Attached file:
                   </Text>
 
                   {fileData.type === "image" ? (
@@ -179,7 +179,7 @@ export default function TaskDetailModal() {
                           {fileData.name}
                         </Text>
                         <Text style={{ color: colors.subText, fontSize: 12 }}>
-                          Документ PDF
+                          PDF document
                         </Text>
                       </View>
                     </View>
@@ -191,7 +191,7 @@ export default function TaskDetailModal() {
 
         {/* Кнопки управления статусом */}
         <Text style={[styles.sectionTitle, { color: colors.text }]}>
-          Изменить статус:
+          Change status:
         </Text>
         <View style={styles.statusButtonsRow}>
           {(["In Progress", "Completed", "Cancelled"] as TaskStatus[]).map(
@@ -216,7 +216,7 @@ export default function TaskDetailModal() {
 
         {/* Кнопка удаления */}
         <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
-          <Text style={styles.buttonText}>Удалить задачу</Text>
+          <Text style={styles.buttonText}>Delete task</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>

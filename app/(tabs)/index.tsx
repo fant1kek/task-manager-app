@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useTasks } from "../../context/TaskContext";
-import { useCustomTheme } from "../../context/ThemeContext";
-import { Task, TaskStatus } from "../../types";
+import { useTasks } from "../../src/context/TaskContext";
+import { useCustomTheme } from "../../src/context/ThemeContext";
+import { Task, TaskStatus } from "../../src/types";
 
 // Простые цвета для светлой и тёмной темы
 const themes = {
@@ -102,7 +102,7 @@ export default function TaskListScreen() {
 
         <View style={styles.cardFooter}>
           <Text style={[styles.footerText, { color: colors.subText }]}>
-            📅 До:{" "}
+            📅 To:{" "}
             {new Date(item.dueDate).toLocaleString([], {
               hour: "2-digit",
               minute: "2-digit",
@@ -135,7 +135,7 @@ export default function TaskListScreen() {
           >
             ●{" "}
             {item.syncStatus === "Sync Failed"
-              ? "Ошибка отправки"
+              ? "Sending error"
               : item.syncStatus}
           </Text>
         </View>
@@ -147,13 +147,13 @@ export default function TaskListScreen() {
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       {/* Шапка экрана с переключателем темы */}
       <View style={styles.header}>
-        <Text style={[styles.headerTitle, { color: colors.text }]}>Задачи</Text>
+        <Text style={[styles.headerTitle, { color: colors.text }]}>Tasks</Text>
         <TouchableOpacity
           style={[styles.themeButton, { backgroundColor: colors.card }]}
           onPress={changeTheme}
         >
           <Text style={{ color: colors.primary }}>
-            {theme === "light" ? "🌙 Тёмная" : "☀️ Светлая"}
+            {theme === "light" ? "🌙 Dark" : "☀️ Light"}
           </Text>
         </TouchableOpacity>
       </View>
@@ -166,7 +166,7 @@ export default function TaskListScreen() {
           contentContainerStyle={styles.sortScroll}
         >
           <Text style={[styles.sortLabel, { color: colors.subText }]}>
-            Сортировка:
+            Sort by:
           </Text>
           <TouchableOpacity
             style={[
@@ -182,7 +182,7 @@ export default function TaskListScreen() {
                 { color: sortBy === "createdAt" ? "#FFF" : colors.text },
               ]}
             >
-              По созданию
+              creation
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -199,7 +199,7 @@ export default function TaskListScreen() {
                 { color: sortBy === "dueDate" ? "#FFF" : colors.text },
               ]}
             >
-              По дедлайну
+              deadline
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -216,7 +216,7 @@ export default function TaskListScreen() {
                 { color: sortBy === "status" ? "#FFF" : colors.text },
               ]}
             >
-              По статусу
+              status
             </Text>
           </TouchableOpacity>
         </ScrollView>
@@ -232,10 +232,10 @@ export default function TaskListScreen() {
           <View style={styles.emptyContainer}>
             <Text style={styles.emptyIcon}>📦</Text>
             <Text style={[styles.emptyText, { color: colors.text }]}>
-              Список задач пуст
+              Task list is empty
             </Text>
             <Text style={[styles.emptySubText, { color: colors.subText }]}>
-              Создайте новую задачу, чтобы она появилась здесь.
+              Create a new task to have it appear here.
             </Text>
           </View>
         }

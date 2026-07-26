@@ -16,8 +16,8 @@ import {
   View,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-import { useTasks } from "../../context/TaskContext";
-import { useCustomTheme } from "../../context/ThemeContext";
+import { useTasks } from "../../src/context/TaskContext";
+import { useCustomTheme } from "../../src/context/ThemeContext";
 
 const themes = {
   light: {
@@ -87,8 +87,8 @@ export default function CreateTaskScreen() {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         Alert.alert(
-          "Доступ запрещен",
-          "Разрешите доступ к локации для автозаполнения адреса.",
+          "Access is denied",
+          "Allow access to the location to auto-complete the address.",
         );
         setIsGeocoding(false);
         return;
@@ -109,7 +109,7 @@ export default function CreateTaskScreen() {
           .join(", ");
 
         setAddress(
-          formattedAddress || `Точка: ${lat.toFixed(4)}, ${lon.toFixed(4)}`,
+          formattedAddress || `Point: ${lat.toFixed(4)}, ${lon.toFixed(4)}`,
         );
         if (errors.address)
           setErrors((prev) => ({ ...prev, address: undefined }));
@@ -124,7 +124,7 @@ export default function CreateTaskScreen() {
   // МЕТОД 2: Адрес ➡️ Координаты (Ввод текста + Кнопка "Найти")
   const geocodeAddressText = async () => {
     if (!address.trim()) {
-      Alert.alert("Внимание", "Сначала введите текст адреса в строку.");
+      Alert.alert("Attention", "First, enter the address text in the line.");
       return;
     }
     setIsGeocoding(true);
@@ -132,7 +132,7 @@ export default function CreateTaskScreen() {
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        Alert.alert("Доступ запрещен", "Разрешите доступ к локации.");
+        Alert.alert("Access is denied", "Allow access to the location.");
         setIsGeocoding(false);
         return;
       }
@@ -153,12 +153,12 @@ export default function CreateTaskScreen() {
         );
       } else {
         Alert.alert(
-          "Упс",
-          "Не удалось найти указанный адрес. Попробуйте написать точнее.",
+          "Oops",
+          "The specified address could not be found. Try to write it more accurately.",
         );
       }
     } catch (error) {
-      Alert.alert("Ошибка", "Произошла ошибка при поиске геопозиции.");
+      Alert.alert("Error", "An error occurred when searching for a location.");
     } finally {
       setIsGeocoding(false);
     }
@@ -199,15 +199,15 @@ export default function CreateTaskScreen() {
         });
       }
     } catch (err) {
-      Alert.alert("Ошибка", "Не удалось выбрать документ.");
+      Alert.alert("Error", "Couldn't select a document.");
     }
   };
   const handleCreate = async () => {
     const currentErrors: typeof errors = {};
-    if (!title.trim()) currentErrors.title = "Название задачи обязательно";
+    if (!title.trim()) currentErrors.title = "The task name is required";
     if (!description.trim())
-      currentErrors.description = "Описание задачи обязательно";
-    if (!address.trim()) currentErrors.address = "Адрес локации обязателен";
+      currentErrors.description = "The task description is required";
+    if (!address.trim()) currentErrors.address = "Location address is required";
 
     if (Object.keys(currentErrors).length > 0) {
       setErrors(currentErrors);
@@ -230,9 +230,9 @@ export default function CreateTaskScreen() {
       status: "New",
     });
 
-    Alert.alert("Успех", "Задача успешно создана!", [
+    Alert.alert("Success", "The task has been successfully created!", [
       {
-        text: "Отлично",
+        text: "Ok",
         onPress: () => {
           setTitle("");
           setDescription("");
@@ -251,15 +251,11 @@ export default function CreateTaskScreen() {
       style={[styles.container, { backgroundColor: colors.background }]}
       contentContainerStyle={styles.content}
     >
-      <Text style={[styles.screenTitle, { color: colors.text }]}>
-        Новая задача
-      </Text>
+      <Text style={[styles.screenTitle, { color: colors.text }]}>New task</Text>
 
       {/* Поле: Название */}
       <View style={styles.inputGroup}>
-        <Text style={[styles.label, { color: colors.text }]}>
-          Название задачи *
-        </Text>
+        <Text style={[styles.label, { color: colors.text }]}>Task name *</Text>
         <TextInput
           style={[
             styles.input,
@@ -269,7 +265,7 @@ export default function CreateTaskScreen() {
               borderColor: errors.title ? "#FF3B30" : colors.border,
             },
           ]}
-          placeholder="Проверить электрощит"
+          placeholder="Make a program"
           placeholderTextColor="#8E8E93"
           value={title}
           onChangeText={(text) => {
@@ -283,7 +279,7 @@ export default function CreateTaskScreen() {
       {/* Поле: Описание */}
       <View style={styles.inputGroup}>
         <Text style={[styles.label, { color: colors.text }]}>
-          Описание работ *
+          Description of works *
         </Text>
         <TextInput
           style={[
@@ -295,7 +291,7 @@ export default function CreateTaskScreen() {
               borderColor: errors.description ? "#FF3B30" : colors.border,
             },
           ]}
-          placeholder="Подробно опишите задачу..."
+          placeholder="Describe the task in detail..."
           placeholderTextColor="#8E8E93"
           multiline
           value={description}
@@ -309,9 +305,7 @@ export default function CreateTaskScreen() {
 
       {/* Поле: Локация (Адрес и Кнопка Найти) */}
       <View style={styles.inputGroup}>
-        <Text style={[styles.label, { color: colors.text }]}>
-          Адрес объекта *
-        </Text>
+        <Text style={[styles.label, { color: colors.text }]}>Address *</Text>
         <View style={styles.searchRow}>
           <TextInput
             style={[
@@ -323,7 +317,7 @@ export default function CreateTaskScreen() {
                 borderColor: errors.address ? "#FF3B30" : colors.border,
               },
             ]}
-            placeholder="Город, улица, дом"
+            placeholder="City, street, house"
             placeholderTextColor="#8E8E93"
             value={address}
             onChangeText={(text) => {
@@ -340,7 +334,7 @@ export default function CreateTaskScreen() {
             {isGeocoding ? (
               <ActivityIndicator color="#FFF" size="small" />
             ) : (
-              <Text style={styles.searchButtonText}>Найти</Text>
+              <Text style={styles.searchButtonText}>Find</Text>
             )}
           </TouchableOpacity>
         </View>
@@ -363,7 +357,7 @@ export default function CreateTaskScreen() {
             {coordinates && (
               <Marker
                 coordinate={coordinates}
-                title="Выбранный объект"
+                title="Selected object"
                 pinColor={colors.primary}
               />
             )}
@@ -378,7 +372,7 @@ export default function CreateTaskScreen() {
               fontWeight: "500",
             }}
           >
-            ✓ Точка связана: {coordinates.latitude.toFixed(4)},{" "}
+            ✓ The point is connected: {coordinates.latitude.toFixed(4)},{" "}
             {coordinates.longitude.toFixed(4)}
           </Text>
         )}
@@ -387,7 +381,7 @@ export default function CreateTaskScreen() {
       {/* Вложения */}
       <View style={styles.inputGroup}>
         <Text style={[styles.label, { color: colors.text }]}>
-          Вложение (Изображение или PDF)
+          Attachment (Image or PDF)
         </Text>
         {attachedFile ? (
           <View
@@ -416,7 +410,7 @@ export default function CreateTaskScreen() {
               style={styles.removeImageButton}
               onPress={() => setAttachedFile(null)}
             >
-              <Text style={styles.removeImageText}>✕ Удалить</Text>
+              <Text style={styles.removeImageText}>✕ Delete</Text>
             </TouchableOpacity>
           </View>
         ) : (
@@ -436,7 +430,7 @@ export default function CreateTaskScreen() {
               onPress={pickImage}
             >
               <Text style={{ color: colors.primary, fontWeight: "600" }}>
-                📸 Фото
+                📸 Photo
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -476,10 +470,10 @@ export default function CreateTaskScreen() {
       >
         <View style={{ flex: 1, marginRight: 8 }}>
           <Text style={[styles.label, { color: colors.text, marginBottom: 2 }]}>
-            🛠 Демо-режим уведомлений
+            🛠 Demo notification mode
           </Text>
           <Text style={{ color: colors.subText, fontSize: 12 }}>
-            Тестовый пуш через 30 секунд
+            Test push in 30 seconds
           </Text>
         </View>
         <Switch
@@ -494,7 +488,7 @@ export default function CreateTaskScreen() {
         style={[styles.submitButton, { backgroundColor: colors.primary }]}
         onPress={handleCreate}
       >
-        <Text style={styles.submitButtonText}>Сохранить задачу</Text>
+        <Text style={styles.submitButtonText}>Save task</Text>
       </TouchableOpacity>
     </ScrollView>
   );

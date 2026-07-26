@@ -4,11 +4,11 @@ import { StyleSheet, Text, View } from "react-native";
 export default function NotFoundScreen() {
   return (
     <>
-      <Stack.Screen options={{ title: "Упс!" }} />
+      <Stack.Screen options={{ title: "Oops!" }} />
       <View style={styles.container}>
-        <Text style={styles.title}>Экрана не существует.</Text>
+        <Text style={styles.title}>The screen does not exist.</Text>
         <Link href="/" style={styles.link}>
-          <Text style={styles.linkText}>Вернуться на главную</Text>
+          <Text style={styles.linkText}>Go back to the main page</Text>
         </Link>
       </View>
     </>
