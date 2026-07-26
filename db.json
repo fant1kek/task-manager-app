@@ -1,66 +1,961 @@
 {
   "tasks": [
     {
-      "title": "D",
-      "description": "X",
-      "dueDate": "2026-07-25T15:46:20.618Z",
+      "title": "Удалить",
+      "description": "Й",
+      "dueDate": "2026-07-26T02:30:59.413Z",
       "location": {
-        "address": "D"
+        "address": "Москва, Посланников переулок, Посланников переулок, 5 с14",
+        "latitude": 55.77098755127048,
+        "longitude": 37.68253564574407
       },
       "attachments": [],
       "status": "New",
-      "id": "rPb0Hm3nQCs",
-      "createdAt": "2026-07-25T13:46:20.618Z",
+      "id": "xptxZPNyF2M",
+      "createdAt": "2026-07-26T00:30:59.413Z",
       "syncStatus": "Synced"
     },
     {
-      "title": "Test",
-      "description": "Test",
-      "dueDate": "2026-07-25T14:41:10.162Z",
+      "title": "Привет",
+      "description": "А",
+      "dueDate": "2026-07-26T08:50:56.375Z",
       "location": {
-        "address": "Q"
+        "address": "Москва, Бауманская улица, Бауманская улица, 11 с5",
+        "latitude": 55.77695531018648,
+        "longitude": 37.67762362351023
       },
       "attachments": [],
       "status": "New",
-      "id": "oXQfNHlnt1w",
-      "createdAt": "2026-07-25T13:41:10.162Z",
+      "id": "b-19LSmqIs8",
+      "createdAt": "2026-07-26T06:50:56.376Z",
       "syncStatus": "Synced"
     },
     {
-      "title": "F",
-      "description": "C",
-      "dueDate": "2026-07-25T15:00:09.955Z",
+      "title": "А",
+      "description": "О",
+      "dueDate": "2026-07-26T08:51:23.398Z",
       "location": {
-        "address": "G"
+        "address": "Москва, Каланчёвская улица, Каланчёвская улица, 2Б",
+        "latitude": 55.77478919067962,
+        "longitude": 37.65382329425579
       },
       "attachments": [],
       "status": "New",
-      "id": "8b7rob8syxo",
-      "createdAt": "2026-07-25T14:00:09.956Z",
+      "id": "DHlxreM0XT4",
+      "createdAt": "2026-07-26T06:51:23.398Z",
       "syncStatus": "Synced"
     }
   ],
   "history": [
     {
-      "id": "SAU7ARr31dQ",
-      "taskId": "ili60g",
-      "actionType": "Sync",
-      "description": "Синхронизировано с сервером: \"Test\"",
-      "timestamp": "2026-07-25T13:46:21.025Z"
+      "id": "8TG_K1LMxUo",
+      "taskId": "sb5bo",
+      "actionType": "Create",
+      "description": "Создана задача: \"Удалить\"",
+      "timestamp": "2026-07-26T00:30:59.413Z"
     },
     {
-      "id": "wUfUcFyiYCc",
+      "id": "FU2PuOAB8Gs",
+      "taskId": "sb5bo",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Удалить\"",
+      "timestamp": "2026-07-26T00:31:00.030Z"
+    },
+    {
+      "id": "PyQ3AYHswLc",
+      "taskId": "sb5bo",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Удалить\"",
+      "timestamp": "2026-07-26T00:31:42.094Z"
+    },
+    {
+      "id": "M-6-YbVrNRg",
+      "taskId": "vk7i3",
+      "actionType": "Delete",
+      "description": "Удалена задача \"П\"",
+      "timestamp": "2026-07-26T00:32:14.468Z"
+    },
+    {
+      "id": "92NePUM4DiE",
+      "taskId": "ey6jmt",
+      "actionType": "Create",
+      "description": "Создана задача: \"Привет\"",
+      "timestamp": "2026-07-26T06:50:56.376Z"
+    },
+    {
+      "id": "YkZ5gF3fuYQ",
+      "taskId": "vk7i3",
+      "actionType": "Delete",
+      "description": "Удалена задача \"П\"",
+      "timestamp": "2026-07-26T00:32:14.468Z"
+    },
+    {
+      "id": "aFC_zWLp0S4",
+      "taskId": "sb5bo",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Удалить\"",
+      "timestamp": "2026-07-26T00:31:42.094Z"
+    },
+    {
+      "id": "qy-uiHwMKdU",
+      "taskId": "sb5bo",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Удалить\"",
+      "timestamp": "2026-07-26T00:31:00.030Z"
+    },
+    {
+      "id": "-QTNTnQC7jc",
+      "taskId": "sb5bo",
+      "actionType": "Create",
+      "description": "Создана задача: \"Удалить\"",
+      "timestamp": "2026-07-26T00:30:59.413Z"
+    },
+    {
+      "id": "fTn0x-MZLjQ",
+      "taskId": "vk7i3",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"П\"",
+      "timestamp": "2026-07-26T00:28:16.263Z"
+    },
+    {
+      "id": "rsyIz1drRMQ",
+      "taskId": "vk7i3",
+      "actionType": "Status Change",
+      "description": "Статус задачи \"П\" изменен на \"Cancelled\"",
+      "timestamp": "2026-07-26T00:28:15.649Z"
+    },
+    {
+      "id": "VGsHPdoQp4w",
+      "taskId": "vk7i3",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"П\"",
+      "timestamp": "2026-07-26T00:28:10.299Z"
+    },
+    {
+      "id": "8too1iCycjs",
+      "taskId": "vk7i3",
+      "actionType": "Status Change",
+      "description": "Статус задачи \"П\" изменен на \"Completed\"",
+      "timestamp": "2026-07-26T00:28:09.701Z"
+    },
+    {
+      "id": "zd8sYaGiMcw",
+      "taskId": "vk7i3",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"П\"",
+      "timestamp": "2026-07-26T00:27:53.375Z"
+    },
+    {
+      "id": "tVsael3Sx70",
+      "taskId": "vk7i3",
+      "actionType": "Status Change",
+      "description": "Статус задачи \"П\" изменен на \"In Progress\"",
+      "timestamp": "2026-07-26T00:27:52.778Z"
+    },
+    {
+      "id": "fXr-yRh_b8A",
+      "taskId": "vk7i3",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"П\"",
+      "timestamp": "2026-07-26T00:27:44.630Z"
+    },
+    {
+      "id": "GtjrcTPw7uk",
+      "taskId": "vk7i3",
+      "actionType": "Create",
+      "description": "Создана задача: \"П\"",
+      "timestamp": "2026-07-26T00:27:43.982Z"
+    },
+    {
+      "id": "cN5EYyxP5Ck",
+      "taskId": "641bw",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Й\"",
+      "timestamp": "2026-07-26T00:26:57.145Z"
+    },
+    {
+      "id": "Yg3KwzfQRUE",
+      "taskId": "641bw",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Й\"",
+      "timestamp": "2026-07-26T00:26:38.735Z"
+    },
+    {
+      "id": "_jaxhWVi75E",
+      "taskId": "641bw",
+      "actionType": "Create",
+      "description": "Создана задача: \"Й\"",
+      "timestamp": "2026-07-26T00:26:38.139Z"
+    },
+    {
+      "id": "2j-o1hcWjG0",
+      "taskId": "7axjjm",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Тест\"",
+      "timestamp": "2026-07-26T00:26:24.345Z"
+    },
+    {
+      "id": "Y9csNYTvXis",
+      "taskId": "ocjy5",
+      "actionType": "Delete",
+      "description": "Удалена задача \"А\"",
+      "timestamp": "2026-07-26T00:26:09.592Z"
+    },
+    {
+      "id": "HkNr4HmzT6M",
+      "taskId": "btz5oa",
+      "actionType": "Delete",
+      "description": "Удалена задача \"А\"",
+      "timestamp": "2026-07-26T00:26:06.641Z"
+    },
+    {
+      "id": "MUh7aeC7fow",
+      "taskId": "btz5oa",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"А\"",
+      "timestamp": "2026-07-26T00:25:57.790Z"
+    },
+    {
+      "id": "dLnL-FB_tpE",
+      "taskId": "btz5oa",
+      "actionType": "Create",
+      "description": "Создана задача: \"А\"",
+      "timestamp": "2026-07-26T00:25:53.247Z"
+    },
+    {
+      "id": "qeshIESrwGE",
+      "taskId": "s1ai9t",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Удалить2\"",
+      "timestamp": "2026-07-26T00:23:27.243Z"
+    },
+    {
+      "id": "Cp6ceIgfSgU",
+      "taskId": "s1ai9t",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Удалить2\"",
+      "timestamp": "2026-07-26T00:23:09.016Z"
+    },
+    {
+      "id": "B_nPH6iQUs0",
+      "taskId": "s1ai9t",
+      "actionType": "Create",
+      "description": "Создана задача: \"Удалить2\"",
+      "timestamp": "2026-07-26T00:23:08.134Z"
+    },
+    {
+      "id": "_BYHnYE7ysw",
+      "taskId": "ls3roj",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Удалить\"",
+      "timestamp": "2026-07-26T00:14:21.210Z"
+    },
+    {
+      "id": "wavlewBDEb8",
+      "taskId": "ls3roj",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Удалить\"",
+      "timestamp": "2026-07-26T00:14:04.633Z"
+    },
+    {
+      "id": "C0t70V75BWM",
+      "taskId": "ls3roj",
+      "actionType": "Create",
+      "description": "Создана задача: \"Удалить\"",
+      "timestamp": "2026-07-26T00:13:59.802Z"
+    },
+    {
+      "id": "WAR11o8wb24",
+      "taskId": "ocjy5",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"А\"",
+      "timestamp": "2026-07-26T00:08:34.464Z"
+    },
+    {
+      "id": "16sJXxTjnX0",
+      "taskId": "ocjy5",
+      "actionType": "Create",
+      "description": "Создана задача: \"А\"",
+      "timestamp": "2026-07-26T00:08:33.916Z"
+    },
+    {
+      "id": "mEEl3OHIEB4",
+      "taskId": "7axjjm",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Тест\"",
+      "timestamp": "2026-07-26T00:07:39.794Z"
+    },
+    {
+      "id": "L7o1UNt98tM",
+      "taskId": "7axjjm",
+      "actionType": "Create",
+      "description": "Создана задача: \"Тест\"",
+      "timestamp": "2026-07-26T00:07:39.199Z"
+    },
+    {
+      "id": "PAwPeFqEZ4s",
+      "taskId": "y3b5vh",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Test\"",
+      "timestamp": "2026-07-26T00:07:20.507Z"
+    },
+    {
+      "id": "EqQWpc8m9U4",
+      "taskId": "q6xxss",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Twst2\"",
+      "timestamp": "2026-07-26T00:07:17.910Z"
+    },
+    {
+      "id": "T-LDK0tLR9Q",
+      "taskId": "zoxs2r",
+      "actionType": "Delete",
+      "description": "Удалена задача \"H\"",
+      "timestamp": "2026-07-26T00:07:14.797Z"
+    },
+    {
+      "id": "9mT3tcOcKr4",
+      "taskId": "zoxs2r",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"H\"",
+      "timestamp": "2026-07-25T23:57:15.934Z"
+    },
+    {
+      "id": "JVrh6cuyBXo",
+      "taskId": "zoxs2r",
+      "actionType": "Create",
+      "description": "Создана задача: \"H\"",
+      "timestamp": "2026-07-25T23:57:15.351Z"
+    },
+    {
+      "id": "3uqDTd0aPyc",
+      "taskId": "q6xxss",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Twst2\"",
+      "timestamp": "2026-07-25T23:48:49.892Z"
+    },
+    {
+      "id": "I9785zBevT8",
+      "taskId": "q6xxss",
+      "actionType": "Create",
+      "description": "Создана задача: \"Twst2\"",
+      "timestamp": "2026-07-25T23:48:49.294Z"
+    },
+    {
+      "id": "3jMHJg8Iy6Q",
+      "taskId": "y3b5vh",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Test\"",
+      "timestamp": "2026-07-25T23:48:03.255Z"
+    },
+    {
+      "id": "p_jGYnywcrQ",
+      "taskId": "y3b5vh",
+      "actionType": "Create",
+      "description": "Создана задача: \"Test\"",
+      "timestamp": "2026-07-25T23:48:02.647Z"
+    },
+    {
+      "id": "jEtsodDLTYo",
+      "taskId": "a0ymxk",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Ало\"",
+      "timestamp": "2026-07-25T23:47:40.846Z"
+    },
+    {
+      "id": "Cj_2hyDDmPU",
+      "taskId": "crn1yv",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Хе-хе\"",
+      "timestamp": "2026-07-25T23:47:38.268Z"
+    },
+    {
+      "id": "tAw0OBMs14U",
+      "taskId": "arcqi",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Э\"",
+      "timestamp": "2026-07-25T23:47:35.449Z"
+    },
+    {
+      "id": "6-9DCZRpGaE",
+      "taskId": "bscxiq",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Л\"",
+      "timestamp": "2026-07-25T15:37:04.228Z"
+    },
+    {
+      "id": "4GSpzy4fSTc",
+      "taskId": "5cpftb",
+      "actionType": "Delete",
+      "description": "Удалена задача \"А\"",
+      "timestamp": "2026-07-25T15:36:58.995Z"
+    },
+    {
+      "id": "Ws-Ic09h8rM",
+      "taskId": "5cpftb",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"А\"",
+      "timestamp": "2026-07-25T15:36:49.131Z"
+    },
+    {
+      "id": "yUWuk1KYoRo",
+      "taskId": "5cpftb",
+      "actionType": "Create",
+      "description": "Создана задача: \"А\"",
+      "timestamp": "2026-07-25T15:36:47.510Z"
+    },
+    {
+      "id": "06F8_Tm3EX0",
+      "taskId": "bscxiq",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Л\"",
+      "timestamp": "2026-07-25T15:36:28.643Z"
+    },
+    {
+      "id": "vuXcS6vLcvQ",
+      "taskId": "bscxiq",
+      "actionType": "Create",
+      "description": "Создана задача: \"Л\"",
+      "timestamp": "2026-07-25T15:36:27.103Z"
+    },
+    {
+      "id": "Cix9KyrEP8M",
+      "taskId": "ry33fp",
+      "actionType": "Delete",
+      "description": "Удалена задача \"О\"",
+      "timestamp": "2026-07-25T15:36:17.503Z"
+    },
+    {
+      "id": "hEMZWSt28BM",
+      "taskId": "ry33fp",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"О\"",
+      "timestamp": "2026-07-25T15:34:55.303Z"
+    },
+    {
+      "id": "rD-k4oojMys",
+      "taskId": "ry33fp",
+      "actionType": "Create",
+      "description": "Создана задача: \"О\"",
+      "timestamp": "2026-07-25T15:34:52.068Z"
+    },
+    {
+      "id": "RDftOJJmUJ4",
+      "taskId": "arcqi",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Э\"",
+      "timestamp": "2026-07-25T15:30:43.181Z"
+    },
+    {
+      "id": "hB5J4O7lY5k",
+      "taskId": "arcqi",
+      "actionType": "Create",
+      "description": "Создана задача: \"Э\"",
+      "timestamp": "2026-07-25T15:30:39.245Z"
+    },
+    {
+      "id": "NS02HdVdb7Q",
+      "taskId": "m4wxb",
+      "actionType": "Delete",
+      "description": "Удалена задача \"E\"",
+      "timestamp": "2026-07-25T15:28:40.057Z"
+    },
+    {
+      "id": "TRmerXPSIJs",
+      "taskId": "echajo",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Иж\"",
+      "timestamp": "2026-07-25T15:28:27.435Z"
+    },
+    {
+      "id": "WUp2BmPVrWU",
+      "taskId": "9rldfx",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Эх\"",
+      "timestamp": "2026-07-25T15:25:21.614Z"
+    },
+    {
+      "id": "U4XDupXDXEU",
+      "taskId": "iftmik",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Е\"",
+      "timestamp": "2026-07-25T15:25:11.371Z"
+    },
+    {
+      "id": "GV1AWz0gT0s",
+      "taskId": "iftmik",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Е\"",
+      "timestamp": "2026-07-25T15:22:26.727Z"
+    },
+    {
+      "id": "Fq2xUPbpqkY",
+      "taskId": "iftmik",
+      "actionType": "Create",
+      "description": "Создана задача: \"Е\"",
+      "timestamp": "2026-07-25T15:22:24.592Z"
+    },
+    {
+      "id": "hHjoMupm8Zk",
+      "taskId": "qga5w",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Ар\"",
+      "timestamp": "2026-07-25T15:22:01.746Z"
+    },
+    {
+      "id": "ixBMMT5_csE",
+      "taskId": "x30xas",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Эк\"",
+      "timestamp": "2026-07-25T15:21:46.410Z"
+    },
+    {
+      "id": "0U9HPxyk8vY",
+      "taskId": "x30xas",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Эк\"",
+      "timestamp": "2026-07-25T15:10:34.848Z"
+    },
+    {
+      "id": "1ypXGK7PGh8",
+      "taskId": "x30xas",
+      "actionType": "Create",
+      "description": "Создана задача: \"Эк\"",
+      "timestamp": "2026-07-25T15:10:32.401Z"
+    },
+    {
+      "id": "NYDBN-mrQgc",
+      "taskId": "qga5w",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Ар\"",
+      "timestamp": "2026-07-25T15:09:31.866Z"
+    },
+    {
+      "id": "_6KaYvKlrug",
+      "taskId": "qga5w",
+      "actionType": "Create",
+      "description": "Создана задача: \"Ар\"",
+      "timestamp": "2026-07-25T15:09:30.064Z"
+    },
+    {
+      "id": "6Uy60ZOQhtM",
+      "taskId": "9rldfx",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Эх\"",
+      "timestamp": "2026-07-25T15:04:49.871Z"
+    },
+    {
+      "id": "2piWEZnzI88",
+      "taskId": "9rldfx",
+      "actionType": "Create",
+      "description": "Создана задача: \"Эх\"",
+      "timestamp": "2026-07-25T15:04:47.845Z"
+    },
+    {
+      "id": "pE74je--OHg",
+      "taskId": "echajo",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Иж\"",
+      "timestamp": "2026-07-25T15:04:33.164Z"
+    },
+    {
+      "id": "VNAFmbH-OkU",
+      "taskId": "echajo",
+      "actionType": "Create",
+      "description": "Создана задача: \"Иж\"",
+      "timestamp": "2026-07-25T15:04:31.270Z"
+    },
+    {
+      "id": "fOnN82V84Zc",
+      "taskId": "crn1yv",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Хе-хе\"",
+      "timestamp": "2026-07-25T14:59:13.657Z"
+    },
+    {
+      "id": "Af368py5G9A",
+      "taskId": "crn1yv",
+      "actionType": "Create",
+      "description": "Создана задача: \"Хе-хе\"",
+      "timestamp": "2026-07-25T14:59:11.746Z"
+    },
+    {
+      "id": "xFYgFzwX3T8",
+      "taskId": "a0ymxk",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Ало\"",
+      "timestamp": "2026-07-25T14:58:45.340Z"
+    },
+    {
+      "id": "ZQOrXVW6o8s",
+      "taskId": "a0ymxk",
+      "actionType": "Create",
+      "description": "Создана задача: \"Ало\"",
+      "timestamp": "2026-07-25T14:58:43.548Z"
+    },
+    {
+      "id": "4bpzU7sGSA0",
+      "taskId": "ijfatq",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Test\"",
+      "timestamp": "2026-07-25T14:56:38.488Z"
+    },
+    {
+      "id": "1yYRgvJHP0M",
+      "taskId": "yr4tdc",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Test\"",
+      "timestamp": "2026-07-25T14:56:32.760Z"
+    },
+    {
+      "id": "haf3SCJb1o4",
+      "taskId": "tva3qwo",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Q\"",
+      "timestamp": "2026-07-25T14:56:29.423Z"
+    },
+    {
+      "id": "XnV_XbPK1G0",
+      "taskId": "ff8ps8",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Тест\"",
+      "timestamp": "2026-07-25T14:56:26.493Z"
+    },
+    {
+      "id": "Gg1NZphyqkA",
+      "taskId": "ff8ps8",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Тест\"",
+      "timestamp": "2026-07-25T14:55:57.103Z"
+    },
+    {
+      "id": "NafjV2_7Buc",
+      "taskId": "ff8ps8",
+      "actionType": "Create",
+      "description": "Создана задача: \"Тест\"",
+      "timestamp": "2026-07-25T14:55:55.261Z"
+    },
+    {
+      "id": "1jey7JDGtM4",
+      "taskId": "tva3qwo",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Q\"",
+      "timestamp": "2026-07-25T14:47:27.268Z"
+    },
+    {
+      "id": "bXUpH0ngOWM",
+      "taskId": "tva3qwo",
+      "actionType": "Create",
+      "description": "Создана задача: \"Q\"",
+      "timestamp": "2026-07-25T14:47:26.753Z"
+    },
+    {
+      "id": "7RfcD572gjw",
+      "taskId": "m4wxb",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"E\"",
+      "timestamp": "2026-07-25T14:40:18.281Z"
+    },
+    {
+      "id": "qtrASS5HWco",
+      "taskId": "m4wxb",
+      "actionType": "Create",
+      "description": "Создана задача: \"E\"",
+      "timestamp": "2026-07-25T14:39:02.454Z"
+    },
+    {
+      "id": "sxTIsCItyy4",
+      "taskId": "yr4tdc",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Test\"",
+      "timestamp": "2026-07-25T14:37:40.263Z"
+    },
+    {
+      "id": "Qoa096o7AlE",
+      "taskId": "yr4tdc",
+      "actionType": "Create",
+      "description": "Создана задача: \"Test\"",
+      "timestamp": "2026-07-25T14:36:24.415Z"
+    },
+    {
+      "id": "pCc_gszDYH8",
+      "taskId": "ijfatq",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Test\"",
+      "timestamp": "2026-07-25T14:31:26.340Z"
+    },
+    {
+      "taskId": "ijfatq",
+      "actionType": "Create",
+      "description": "Создана задача: \"Test\"",
+      "id": "Jk77W3RHhTg",
+      "timestamp": "2026-07-25T14:30:10.512Z"
+    },
+    {
+      "taskId": "ili60g",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Test\"",
+      "id": "rXLD2PoZbiw",
+      "timestamp": "2026-07-25T14:29:58.265Z"
+    },
+    {
+      "taskId": "7xpnb",
+      "actionType": "Delete",
+      "description": "Удалена задача \"F\"",
+      "id": "BRpYAu2npB0",
+      "timestamp": "2026-07-25T14:29:55.566Z"
+    },
+    {
+      "taskId": "zy2co",
+      "actionType": "Delete",
+      "description": "Удалена задача \"D\"",
+      "id": "vRKTN6KZnU0",
+      "timestamp": "2026-07-25T14:29:52.451Z"
+    },
+    {
+      "taskId": "jl91pj",
+      "actionType": "Delete",
+      "description": "Удалена задача \"D\"",
+      "id": "OVl2MKizezc",
+      "timestamp": "2026-07-25T14:29:49.538Z"
+    },
+    {
+      "id": "4kcP0OhWDDk",
+      "taskId": "jl91pj",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"D\"",
+      "timestamp": "2026-07-25T14:26:56.077Z"
+    },
+    {
+      "taskId": "jl91pj",
+      "actionType": "Create",
+      "description": "Создана задача: \"D\"",
+      "id": "v9dYLJ8S2jI",
+      "timestamp": "2026-07-25T14:25:40.224Z"
+    },
+    {
+      "id": "guUqv7C3haI",
+      "taskId": "zy2co",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"D\"",
+      "timestamp": "2026-07-25T14:19:42.612Z"
+    },
+    {
+      "taskId": "zy2co",
+      "actionType": "Create",
+      "description": "Создана задача: \"D\"",
+      "id": "dGyeDhdZjes",
+      "timestamp": "2026-07-25T14:19:42.139Z"
+    },
+    {
+      "id": "Mn85R41jKFA",
+      "taskId": "7xpnb",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"F\"",
+      "timestamp": "2026-07-25T14:00:10.402Z"
+    },
+    {
+      "taskId": "7xpnb",
+      "actionType": "Create",
+      "description": "Создана задача: \"F\"",
+      "id": "yggzFYqVq3U",
+      "timestamp": "2026-07-25T14:00:09.956Z"
+    },
+    {
+      "taskId": "fzglk6",
+      "actionType": "Delete",
+      "description": "Удалена задача \"D\"",
+      "id": "xKY-Eb1hqvo",
+      "timestamp": "2026-07-25T13:58:45.530Z"
+    },
+    {
+      "id": "6aPs1R2rBXk",
       "taskId": "fzglk6",
       "actionType": "Sync",
       "description": "Синхронизировано с сервером: \"D\"",
       "timestamp": "2026-07-25T13:46:21.041Z"
     },
     {
-      "id": "8_TE_XAccvU",
-      "taskId": "7xpnb",
+      "id": "qWWJqj1SplI",
+      "taskId": "ili60g",
       "actionType": "Sync",
-      "description": "Синхронизировано с сервером: \"F\"",
-      "timestamp": "2026-07-25T14:00:10.402Z"
+      "description": "Синхронизировано с сервером: \"Test\"",
+      "timestamp": "2026-07-25T13:46:21.025Z"
+    },
+    {
+      "taskId": "fzglk6",
+      "actionType": "Create",
+      "description": "Создана задача: \"D\"",
+      "id": "Tsva_6y8fCQ",
+      "timestamp": "2026-07-25T13:46:20.619Z"
+    },
+    {
+      "taskId": "ili60g",
+      "actionType": "Create",
+      "description": "Создана задача: \"Test\"",
+      "id": "xiZPD4_4h94",
+      "timestamp": "2026-07-25T13:41:10.162Z"
+    },
+    {
+      "taskId": "q9j0ti",
+      "actionType": "Delete",
+      "description": "Удалена задача \"F\"",
+      "id": "l-fP01PJHW0",
+      "timestamp": "2026-07-25T13:40:56.702Z"
+    },
+    {
+      "taskId": "5ps8n9",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Ала\"",
+      "id": "oNyEIddtdNM",
+      "timestamp": "2026-07-25T13:40:53.864Z"
+    },
+    {
+      "taskId": "12g54q",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Ш\"",
+      "id": "EmCYGkG1qWY",
+      "timestamp": "2026-07-25T13:40:51.199Z"
+    },
+    {
+      "taskId": "44yni",
+      "actionType": "Delete",
+      "description": "Удалена задача \"И\"",
+      "id": "aGjEbMqnHtQ",
+      "timestamp": "2026-07-25T13:40:48.350Z"
+    },
+    {
+      "taskId": "ctmiq",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Тест\"",
+      "id": "yc2dU5gk2jk",
+      "timestamp": "2026-07-25T13:40:45.519Z"
+    },
+    {
+      "taskId": "q9j0ti",
+      "actionType": "Create",
+      "description": "Создана задача: \"F\"",
+      "id": "cw84GP_wL2o",
+      "timestamp": "2026-07-25T13:40:20.223Z"
+    },
+    {
+      "taskId": "5ps8n9",
+      "actionType": "Create",
+      "description": "Создана задача: \"Ала\"",
+      "id": "j0RFVYPaiWo",
+      "timestamp": "2026-07-25T13:35:03.386Z"
+    },
+    {
+      "taskId": "12g54q",
+      "actionType": "Create",
+      "description": "Создана задача: \"Ш\"",
+      "id": "9ibNqIxbHag",
+      "timestamp": "2026-07-25T13:31:01.784Z"
+    },
+    {
+      "taskId": "ctmiq",
+      "actionType": "Status Change",
+      "description": "Статус задачи \"Тест\" изменен на \"In Progress\"",
+      "id": "IStGodyXX1U",
+      "timestamp": "2026-07-25T13:29:45.620Z"
+    },
+    {
+      "taskId": "44yni",
+      "actionType": "Create",
+      "description": "Создана задача: \"И\"",
+      "id": "5z7B48-tF3Y",
+      "timestamp": "2026-07-25T13:28:05.590Z"
+    },
+    {
+      "taskId": "ctmiq",
+      "actionType": "Create",
+      "description": "Создана задача: \"Тест\"",
+      "id": "a695b-m6w1Y",
+      "timestamp": "2026-07-25T12:57:24.251Z"
+    },
+    {
+      "taskId": "oz5i36",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Тест\"",
+      "id": "VUgb2QEZLO4",
+      "timestamp": "2026-07-25T12:26:09.095Z"
+    },
+    {
+      "taskId": "oz5i36",
+      "actionType": "Status Change",
+      "description": "Статус задачи \"Тест\" изменен на \"In Progress\"",
+      "id": "AG9cnxByogw",
+      "timestamp": "2026-07-25T12:25:58.408Z"
+    },
+    {
+      "taskId": "froxvg",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Тест2\"",
+      "id": "qXe0vjjBnZY",
+      "timestamp": "2026-07-25T11:54:58.969Z"
+    },
+    {
+      "taskId": "froxvg",
+      "actionType": "Status Change",
+      "description": "Статус задачи \"Тест2\" изменен на \"Cancelled\"",
+      "id": "5Yn6gBjRIzk",
+      "timestamp": "2026-07-25T11:54:50.879Z"
+    },
+    {
+      "taskId": "oz5i36",
+      "actionType": "Status Change",
+      "description": "Статус задачи \"Тест\" изменен на \"Completed\"",
+      "id": "MGwgO9dW7nk",
+      "timestamp": "2026-07-25T11:54:39.170Z"
+    },
+    {
+      "taskId": "oz5i36",
+      "actionType": "Status Change",
+      "description": "Статус задачи \"Тест\" изменен на \"In Progress\"",
+      "id": "YlQ2eH0d0sY",
+      "timestamp": "2026-07-25T11:54:30.543Z"
+    },
+    {
+      "taskId": "froxvg",
+      "actionType": "Create",
+      "description": "Создана задача: \"Тест2\"",
+      "id": "rt_S0QxTwEE",
+      "timestamp": "2026-07-25T11:54:01.847Z"
+    },
+    {
+      "taskId": "oz5i36",
+      "actionType": "Create",
+      "description": "Создана задача: \"Тест\"",
+      "id": "QlFSzfkah3w",
+      "timestamp": "2026-07-25T11:53:04.752Z"
+    },
+    {
+      "id": "ToMS5Njv4zI",
+      "taskId": "ey6jmt",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"Привет\"",
+      "timestamp": "2026-07-26T06:51:02.986Z"
+    },
+    {
+      "id": "Czbqw9Phxqs",
+      "taskId": "23i1ky",
+      "actionType": "Create",
+      "description": "Создана задача: \"А\"",
+      "timestamp": "2026-07-26T06:51:23.398Z"
+    },
+    {
+      "id": "BxgiiI5tmUo",
+      "taskId": "23i1ky",
+      "actionType": "Sync",
+      "description": "Синхронизировано с сервером: \"А\"",
+      "timestamp": "2026-07-26T06:51:24.113Z"
+    },
+    {
+      "id": "eJT0lZR9vI0",
+      "taskId": "ey6jmt",
+      "actionType": "Delete",
+      "description": "Удалена задача \"Привет\"",
+      "timestamp": "2026-07-26T06:51:42.829Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

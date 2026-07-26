@@ -1,7 +1,12 @@
+import * as DocumentPicker from "expo-document-picker";
+import * as ImagePicker from "expo-image-picker";
+import * as Location from "expo-location"; // Геокодер Expo
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
+  Image,
   ScrollView,
   StyleSheet,
   Switch,
@@ -10,26 +15,26 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 import { useTasks } from "../../context/TaskContext";
 import { useCustomTheme } from "../../context/ThemeContext";
-import { NotificationService } from "../../services/NotificationService";
 
 const themes = {
   light: {
     background: "#F5F5F7",
     card: "#FFFFFF",
     text: "#1C1C1E",
+    subText: "#8E8E93",
     border: "#E5E5EA",
     textInput: "#F2F2F7",
     primary: "#007AFF",
-    subText: "#8E8E93",
   },
   dark: {
     background: "#121212",
     card: "#1E1E1E",
     text: "#FFFFFF",
-    border: "#38383A",
     subText: "#8E8E93",
+    border: "#38383A",
     textInput: "#2C2C2E",
     primary: "#0A84FF",
   },
@@ -40,25 +45,165 @@ export default function CreateTaskScreen() {
   const { theme } = useCustomTheme();
   const colors = theme === "dark" ? themes.dark : themes.light;
   const router = useRouter();
-  const [isDemoMode, setIsDemoMode] = useState(false);
+  const mapRef = useRef<MapView | null>(null);
 
   // Состояния полей формы
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [address, setAddress] = useState("");
-  const [hoursAhead, setHoursAhead] = useState("2"); // Дефолтный дедлайн через 2 часа
+  const [hoursAhead, setHoursAhead] = useState("2");
+  const [isDemoMode, setIsDemoMode] = useState(false);
+  const [attachedFile, setAttachedFile] = useState<{
+    uri: string;
+    name: string;
+    type: "image" | "pdf";
+  } | null>(null);
 
-  // Ошибки валидации
+  // Координаты и лоадер для геокодирования
+  const [coordinates, setCoordinates] = useState<{
+    latitude: number;
+    longitude: number;
+  } | null>(null);
+  const [isGeocoding, setIsGeocoding] = useState(false);
   const [errors, setErrors] = useState<{
     title?: string;
     description?: string;
     address?: string;
   }>({});
 
+  const INITIAL_REGION = {
+    latitude: 55.7558,
+    longitude: 37.6173,
+    latitudeDelta: 0.05,
+    longitudeDelta: 0.05,
+  };
+
+  // МЕТОД 1: Координаты ➡️ Адрес (Клик по карте)
+  const handleMapPress = async (lat: number, lon: number) => {
+    setCoordinates({ latitude: lat, longitude: lon });
+    setIsGeocoding(true);
+
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert(
+          "Доступ запрещен",
+          "Разрешите доступ к локации для автозаполнения адреса.",
+        );
+        setIsGeocoding(false);
+        return;
+      }
+
+      const response = await Location.reverseGeocodeAsync({
+        latitude: lat,
+        longitude: lon,
+      });
+      if (response && response.length > 0) {
+        const item = response[0];
+        const formattedAddress = [
+          item.city || item.subregion,
+          item.street,
+          item.name,
+        ]
+          .filter(Boolean)
+          .join(", ");
+
+        setAddress(
+          formattedAddress || `Точка: ${lat.toFixed(4)}, ${lon.toFixed(4)}`,
+        );
+        if (errors.address)
+          setErrors((prev) => ({ ...prev, address: undefined }));
+      }
+    } catch (error) {
+      console.log("Ошибка обратного геокодирования:", error);
+    } finally {
+      setIsGeocoding(false);
+    }
+  };
+
+  // МЕТОД 2: Адрес ➡️ Координаты (Ввод текста + Кнопка "Найти")
+  const geocodeAddressText = async () => {
+    if (!address.trim()) {
+      Alert.alert("Внимание", "Сначала введите текст адреса в строку.");
+      return;
+    }
+    setIsGeocoding(true);
+
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert("Доступ запрещен", "Разрешите доступ к локации.");
+        setIsGeocoding(false);
+        return;
+      }
+
+      const response = await Location.geocodeAsync(address.trim());
+      if (response && response.length > 0) {
+        const { latitude, longitude } = response[0];
+        setCoordinates({ latitude, longitude });
+
+        mapRef.current?.animateToRegion(
+          {
+            latitude,
+            longitude,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+          },
+          1000,
+        );
+      } else {
+        Alert.alert(
+          "Упс",
+          "Не удалось найти указанный адрес. Попробуйте написать точнее.",
+        );
+      }
+    } catch (error) {
+      Alert.alert("Ошибка", "Произошла ошибка при поиске геопозиции.");
+    } finally {
+      setIsGeocoding(false);
+    }
+  };
+
+  const pickImage = async () => {
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!permissionResult.granted) return;
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ["images"],
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 0.8,
+    });
+
+    if (!result.canceled && result.assets && result.assets.length > 0) {
+      setAttachedFile({
+        uri: result.assets[0].uri,
+        name: result.assets[0].fileName || "photo.jpg",
+        type: "image",
+      });
+    }
+  };
+
+  const pickPdf = async () => {
+    try {
+      const result = await DocumentPicker.getDocumentAsync({
+        type: "application/pdf",
+        copyToCacheDirectory: true,
+      });
+      if (!result.canceled && result.assets && result.assets.length > 0) {
+        setAttachedFile({
+          uri: result.assets[0].uri,
+          name: result.assets[0].name,
+          type: "pdf",
+        });
+      }
+    } catch (err) {
+      Alert.alert("Ошибка", "Не удалось выбрать документ.");
+    }
+  };
   const handleCreate = async () => {
     const currentErrors: typeof errors = {};
-
-    // Жесткая валидация по ТЗ
     if (!title.trim()) currentErrors.title = "Название задачи обязательно";
     if (!description.trim())
       currentErrors.description = "Описание задачи обязательно";
@@ -66,56 +211,39 @@ export default function CreateTaskScreen() {
 
     if (Object.keys(currentErrors).length > 0) {
       setErrors(currentErrors);
-      Alert.alert("Ошибка", "Пожалуйста, заполните все обязательные поля.");
       return;
     }
 
-    // Вычисляем дату дедлайна
     const dueDate = new Date();
     dueDate.setHours(dueDate.getHours() + parseInt(hoursAhead || "2", 10));
 
-    try {
-      await addTask({
-        title: title.trim(),
-        description: description.trim(),
-        dueDate: dueDate.toISOString(),
-        location: { address: address.trim() },
-        attachments: [], // Фото добавим на следующем шаге
-        status: "New",
-      });
+    await addTask({
+      title: title.trim(),
+      description: description.trim(),
+      dueDate: dueDate.toISOString(),
+      location: {
+        address: address.trim(),
+        latitude: coordinates?.latitude,
+        longitude: coordinates?.longitude,
+      },
+      attachments: attachedFile ? [JSON.stringify(attachedFile)] : [],
+      status: "New",
+    });
 
-      // Логика планирования пуша по ТЗ
-      if (isDemoMode) {
-        // Если включен демо-режим — шлем пуш через 30 секунд
-        await NotificationService.scheduleDemoNotification(title.trim(), 30);
-      } else {
-        // В обычном режиме — за 30 минут до дедлайна
-        const dueDate = new Date();
-        dueDate.setHours(dueDate.getHours() + parseInt(hoursAhead || "2", 10));
-        await NotificationService.scheduleTaskNotification(
-          Math.random().toString(),
-          title.trim(),
-          dueDate.toISOString(),
-        );
-      }
-
-      Alert.alert("Успех", "Задача успешно создана локально!", [
-        {
-          text: "Отлично",
-          onPress: () => {
-            // Очищаем форму
-            setTitle("");
-            setDescription("");
-            setAddress("");
-            setErrors({});
-            // Перенаправляем на первый таб со списком
-            router.push("/");
-          },
+    Alert.alert("Успех", "Задача успешно создана!", [
+      {
+        text: "Отлично",
+        onPress: () => {
+          setTitle("");
+          setDescription("");
+          setAddress("");
+          setCoordinates(null);
+          setAttachedFile(null);
+          setErrors({});
+          router.push("/");
         },
-      ]);
-    } catch (e) {
-      Alert.alert("Ошибка", "Не удалось сохранить задачу.");
-    }
+      },
+    ]);
   };
 
   return (
@@ -141,7 +269,7 @@ export default function CreateTaskScreen() {
               borderColor: errors.title ? "#FF3B30" : colors.border,
             },
           ]}
-          placeholder="Например, Проверить электрощит"
+          placeholder="Проверить электрощит"
           placeholderTextColor="#8E8E93"
           value={title}
           onChangeText={(text) => {
@@ -150,7 +278,6 @@ export default function CreateTaskScreen() {
               setErrors((prev) => ({ ...prev, title: undefined }));
           }}
         />
-        {errors.title && <Text style={styles.errorText}>{errors.title}</Text>}
       </View>
 
       {/* Поле: Описание */}
@@ -168,10 +295,9 @@ export default function CreateTaskScreen() {
               borderColor: errors.description ? "#FF3B30" : colors.border,
             },
           ]}
-          placeholder="Подробно опишите, что нужно сделать на объекте..."
+          placeholder="Подробно опишите задачу..."
           placeholderTextColor="#8E8E93"
           multiline
-          numberOfLines={4}
           value={description}
           onChangeText={(text) => {
             setDescription(text);
@@ -179,60 +305,161 @@ export default function CreateTaskScreen() {
               setErrors((prev) => ({ ...prev, description: undefined }));
           }}
         />
-        {errors.description && (
-          <Text style={styles.errorText}>{errors.description}</Text>
-        )}
       </View>
 
-      {/* Поле: Локация (Адрес) */}
+      {/* Поле: Локация (Адрес и Кнопка Найти) */}
       <View style={styles.inputGroup}>
         <Text style={[styles.label, { color: colors.text }]}>
           Адрес объекта *
         </Text>
-        <TextInput
-          style={[
-            styles.input,
-            {
-              backgroundColor: colors.textInput,
-              color: colors.text,
-              borderColor: errors.address ? "#FF3B30" : colors.border,
-            },
-          ]}
-          placeholder="Улица, дом, номер офиса"
-          placeholderTextColor="#8E8E93"
-          value={address}
-          onChangeText={(text) => {
-            setAddress(text);
-            if (errors.address)
-              setErrors((prev) => ({ ...prev, address: undefined }));
-          }}
-        />
-        {errors.address && (
-          <Text style={styles.errorText}>{errors.address}</Text>
+        <View style={styles.searchRow}>
+          <TextInput
+            style={[
+              styles.input,
+              {
+                flex: 1,
+                backgroundColor: colors.textInput,
+                color: colors.text,
+                borderColor: errors.address ? "#FF3B30" : colors.border,
+              },
+            ]}
+            placeholder="Город, улица, дом"
+            placeholderTextColor="#8E8E93"
+            value={address}
+            onChangeText={(text) => {
+              setAddress(text);
+              if (errors.address)
+                setErrors((prev) => ({ ...prev, address: undefined }));
+            }}
+          />
+          <TouchableOpacity
+            style={[styles.searchButton, { backgroundColor: colors.primary }]}
+            onPress={geocodeAddressText}
+            disabled={isGeocoding}
+          >
+            {isGeocoding ? (
+              <ActivityIndicator color="#FFF" size="small" />
+            ) : (
+              <Text style={styles.searchButtonText}>Найти</Text>
+            )}
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Интерактивная карта */}
+      <View style={styles.inputGroup}>
+        <View style={[styles.mapContainer, { borderColor: colors.border }]}>
+          <MapView
+            ref={mapRef}
+            style={styles.map}
+            initialRegion={INITIAL_REGION}
+            onPress={(e) =>
+              handleMapPress(
+                e.nativeEvent.coordinate.latitude,
+                e.nativeEvent.coordinate.longitude,
+              )
+            }
+          >
+            {coordinates && (
+              <Marker
+                coordinate={coordinates}
+                title="Выбранный объект"
+                pinColor={colors.primary}
+              />
+            )}
+          </MapView>
+        </View>
+        {coordinates && (
+          <Text
+            style={{
+              color: "#34C759",
+              fontSize: 13,
+              marginTop: 6,
+              fontWeight: "500",
+            }}
+          >
+            ✓ Точка связана: {coordinates.latitude.toFixed(4)},{" "}
+            {coordinates.longitude.toFixed(4)}
+          </Text>
         )}
       </View>
 
-      {/* Поле: Время на выполнение */}
+      {/* Вложения */}
       <View style={styles.inputGroup}>
         <Text style={[styles.label, { color: colors.text }]}>
-          Срок выполнения (через сколько часов)
+          Вложение (Изображение или PDF)
         </Text>
-        <TextInput
-          style={[
-            styles.input,
-            {
-              backgroundColor: colors.textInput,
-              color: colors.text,
-              borderColor: colors.border,
-            },
-          ]}
-          keyboardType="numeric"
-          value={hoursAhead}
-          onChangeText={setHoursAhead}
-        />
+        {attachedFile ? (
+          <View
+            style={[
+              styles.imagePreviewContainer,
+              { backgroundColor: colors.card, borderColor: colors.border },
+            ]}
+          >
+            {attachedFile.type === "image" ? (
+              <Image
+                source={{ uri: attachedFile.uri }}
+                style={styles.previewImage}
+              />
+            ) : (
+              <View style={{ paddingVertical: 16, alignItems: "center" }}>
+                <Text style={{ fontSize: 36 }}>📄</Text>
+                <Text
+                  style={{ color: colors.text, marginTop: 4 }}
+                  numberOfLines={1}
+                >
+                  {attachedFile.name}
+                </Text>
+              </View>
+            )}
+            <TouchableOpacity
+              style={styles.removeImageButton}
+              onPress={() => setAttachedFile(null)}
+            >
+              <Text style={styles.removeImageText}>✕ Удалить</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <TouchableOpacity
+              style={[
+                styles.attachButton,
+                {
+                  flex: 1,
+                  marginRight: 6,
+                  backgroundColor: colors.card,
+                  borderColor: colors.border,
+                },
+              ]}
+              onPress={pickImage}
+            >
+              <Text style={{ color: colors.primary, fontWeight: "600" }}>
+                📸 Фото
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.attachButton,
+                {
+                  flex: 1,
+                  marginLeft: 6,
+                  backgroundColor: colors.card,
+                  borderColor: colors.border,
+                },
+              ]}
+              onPress={pickPdf}
+            >
+              <Text style={{ color: colors.primary, fontWeight: "600" }}>
+                📄 PDF
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
 
-      {/* Блок Демо-режима уведомлений */}
+      {/* Демо-режим пушей */}
       <View
         style={[
           styles.inputGroup,
@@ -252,7 +479,7 @@ export default function CreateTaskScreen() {
             🛠 Демо-режим уведомлений
           </Text>
           <Text style={{ color: colors.subText, fontSize: 12 }}>
-            Прислать тестовый пуш через 30 секунд для проверки кода
+            Тестовый пуш через 30 секунд
           </Text>
         </View>
         <Switch
@@ -262,7 +489,7 @@ export default function CreateTaskScreen() {
         />
       </View>
 
-      {/* Кнопка создания */}
+      {/* Кнопка сохранения */}
       <TouchableOpacity
         style={[styles.submitButton, { backgroundColor: colors.primary }]}
         onPress={handleCreate}
@@ -286,18 +513,57 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     fontSize: 16,
   },
-  textArea: { height: 100, textAlignVertical: "top" },
-  errorText: {
-    color: "#FF3B30",
-    fontSize: 13,
-    marginTop: 4,
-    fontWeight: "500",
+  textArea: { height: 80, textAlignVertical: "top" },
+  searchRow: { flexDirection: "row", alignItems: "center" },
+  searchButton: {
+    marginLeft: 8,
+    paddingVertical: 11,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
+  searchButtonText: { color: "#FFF", fontWeight: "bold", fontSize: 14 },
+  mapContainer: {
+    width: "100%",
+    height: 180,
+    borderRadius: 12,
+    overflow: "hidden",
+    borderWidth: 1,
+  },
+  map: { width: "100%", height: "100%" },
+  attachButton: {
+    borderWidth: 1,
+    borderStyle: "dashed",
+    borderRadius: 10,
+    paddingVertical: 12,
+    alignItems: "center",
+  },
+  imagePreviewContainer: {
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 12,
+    alignItems: "center",
+    marginTop: 4,
+  },
+  previewImage: {
+    width: "100%",
+    height: 150,
+    borderRadius: 8,
+    resizeMode: "cover",
+  },
+  removeImageButton: {
+    backgroundColor: "#FF3B30",
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    marginTop: 8,
+  },
+  removeImageText: { color: "#FFF", fontWeight: "bold", fontSize: 12 },
   submitButton: {
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: "center",
-    marginTop: 12,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,

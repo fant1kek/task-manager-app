@@ -52,7 +52,8 @@ export default function TaskListScreen() {
 
   // Функция сортировки данных
   const getSortedTasks = (): Task[] => {
-    return [...tasks].sort((a, b) => {
+    const activeTasks = tasks.filter((t) => !t.isDeleted);
+    return [...activeTasks].sort((a, b) => {
       if (sortBy === "status") {
         return a.status.localeCompare(b.status);
       }
@@ -62,7 +63,7 @@ export default function TaskListScreen() {
       const dateB = new Date(
         sortBy === "dueDate" ? b.dueDate : b.createdAt,
       ).getTime();
-      return dateB - dateA; // Новые сверху
+      return dateB - dateA;
     });
   };
 

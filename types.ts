@@ -15,6 +15,7 @@ export interface Task {
   status: TaskStatus;
   syncStatus: SyncStatus;
   createdAt: string;
+  isDeleted?: boolean;
 }
 
 export interface HistoryLog {

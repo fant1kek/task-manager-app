@@ -2,6 +2,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import React from "react";
 import {
   Alert,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -77,7 +78,6 @@ export default function TaskDetailModal() {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
-      {/* Исправленная шапка: центровка через стили, без пустых View-заглушек */}
       <View style={[styles.customHeader, { borderColor: colors.border }]}>
         <TouchableOpacity
           onPress={() => router.back()}
@@ -117,12 +117,76 @@ export default function TaskDetailModal() {
           <Text style={[styles.metaText, { color: colors.subText }]}>
             📍 Адрес: {task.location.address}
           </Text>
+          {task.location.latitude && task.location.longitude && (
+            <Text style={[styles.metaText, { color: colors.subText }]}>
+              🌐 Координаты: {task.location.latitude.toFixed(5)},{" "}
+              {task.location.longitude.toFixed(5)}
+            </Text>
+          )}
           <Text style={[styles.metaText, { color: colors.subText }]}>
             📅 Дедлайн: {new Date(task.dueDate).toLocaleString()}
           </Text>
           <Text style={[styles.metaText, { color: colors.subText }]}>
             🔄 Синхронизация: {task.syncStatus}
           </Text>
+          {/* Отображение прикрепленного фото или по ТЗ */}
+          {task.attachments &&
+            task.attachments.length > 0 &&
+            (() => {
+              const fileData = JSON.parse(task.attachments[0]);
+              return (
+                <View style={{ marginTop: 16 }}>
+                  <Text
+                    style={[
+                      styles.metaText,
+                      { color: colors.subText, marginBottom: 8 },
+                    ]}
+                  >
+                    📎 Прикрепленный файл:
+                  </Text>
+
+                  {fileData.type === "image" ? (
+                    <Image
+                      source={{ uri: fileData.uri }}
+                      style={{
+                        width: "100%",
+                        height: 200,
+                        borderRadius: 10,
+                        resizeMode: "cover",
+                      }}
+                    />
+                  ) : (
+                    <View
+                      style={{
+                        backgroundColor:
+                          theme === "dark" ? "#2C2C2E" : "#E5E5EA",
+                        padding: 16,
+                        borderRadius: 10,
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Text style={{ fontSize: 30, marginRight: 12 }}>📄</Text>
+                      <View style={{ flex: 1 }}>
+                        <Text
+                          style={{
+                            color: colors.text,
+                            fontWeight: "600",
+                            fontSize: 15,
+                          }}
+                          numberOfLines={1}
+                        >
+                          {fileData.name}
+                        </Text>
+                        <Text style={{ color: colors.subText, fontSize: 12 }}>
+                          Документ PDF
+                        </Text>
+                      </View>
+                    </View>
+                  )}
+                </View>
+              );
+            })()}
         </View>
 
         {/* Кнопки управления статусом */}
