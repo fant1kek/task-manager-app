@@ -3,9 +3,9 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
-import { NotificationService } from "../services/NotificationService";
 import { TaskProvider } from "../src/context/TaskContext";
 import { CustomThemeProvider } from "../src/context/ThemeContext";
+import { NotificationService } from "../src/services/NotificationService";
 
 export {
   // Catch any errors thrown by the Layout component.

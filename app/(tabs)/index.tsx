@@ -20,6 +20,7 @@ const themes = {
     text: "#1C1C1E",
     subText: "#8E8E93",
     primary: "#007AFF",
+    border: "#E5E5EA",
   },
   dark: {
     background: "#121212",
@@ -27,6 +28,7 @@ const themes = {
     text: "#FFFFFF",
     subText: "#8E8E93",
     primary: "#0A84FF",
+    border: "#38383A",
   },
 };
 
@@ -240,6 +242,28 @@ export default function TaskListScreen() {
           </View>
         }
       />
+
+      {/* Футер с кодом кандидата по требованию ТЗ */}
+      <View
+        style={{
+          paddingVertical: 12,
+          alignItems: "center",
+          borderTopWidth: StyleSheet.hairlineWidth,
+          borderColor: colors.border,
+          backgroundColor: colors.card,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 12,
+            color: colors.subText,
+            fontWeight: "600",
+            letterSpacing: 1,
+          }}
+        >
+          CANDIDATE CODE: SA-RN-7032
+        </Text>
+      </View>
     </View>
   );
 }
